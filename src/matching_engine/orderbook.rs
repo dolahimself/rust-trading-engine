@@ -36,27 +36,6 @@ impl Orderbook {
                 break;
             }
         }
-
-        match market_order.bid_or_ask {
-            BidOrAsk::Bid => {
-                for limit_order in self.asks_limits() {
-                    limit_order.fill_order(market_order);
-
-                    if market_order.is_filled() {
-                        break;
-                    }
-                }
-            }
-            BidOrAsk::Ask => {
-                for limit_order in self.bids_limits() {
-                    limit_order.fill_order(market_order);
-
-                    if market_order.is_filled() {
-                        break;
-                    }
-                }
-            }
-        }
     }
 
     // BIDS (BUY ORDERS) => ASKS LIMITS => sorted by price ascending (cheapest first)
